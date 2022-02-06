@@ -12,10 +12,14 @@ def create_app():
     # 加载settings中的配置
     app.config.from_object(envs.get('develop'))
 
+    print(app.config)
+
     # 加载扩展库
     init_ext(app)
 
     # 加载路由
 
     init_api(app)
+
+
     return app

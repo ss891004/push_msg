@@ -25,14 +25,19 @@ class Config:
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 
+
+
+
 class DevelopConfig(Config):
+
+    ENV='development'
 
     DEBUG = True
 
     dbinfo = {
 
         "ENGINE": "mysql",
-        "DRIVER": "mysqldb",
+        "DRIVER": "mysqlconnector",
         "USER": "root",
         "PASSWORD": "123456",
         "HOST": "127.0.0.1",
@@ -42,6 +47,8 @@ class DevelopConfig(Config):
     }
 
     SQLALCHEMY_DATABASE_URI = get_db_uri(dbinfo)
+
+    SCHEDULER_API_ENABLED = True
 
 
 class TestConfig(Config):
