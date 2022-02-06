@@ -1,4 +1,8 @@
+pip freeze > requirements.txt	
+# 使用pip导出依赖文件列表
 
+pip install -r requirements.txt
+# 根据依赖文件列表，自动安装对应的软件包
 
 pip install python-dotenv
 
