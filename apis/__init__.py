@@ -1,14 +1,16 @@
 
 from flask_restx import Api
-from .hw_api import HelloWorld
-from .todo_api import ns
+
+from .upload_media import ns as upload_media_ns
+from .access_token import AccessToken
 
 api =Api()
 
 def init_api(app):
-    api.init_app(app, version='1.0', title='TodoMVC API',description='A simple TodoMVC API',)
+    api.init_app(app, version='1.0', title='企业微信消息推送 API',description='企业微信消息推送 API',)
 
-# 注册资源
-api.add_resource(HelloWorld, '/world')
+# 注册资源，使用默认的命名空间
+api.add_resource(AccessToken, '/token')
 
-api.add_namespace(ns,path='/bbbbb')
+# 注册资源，使用单独的命名空间
+api.add_namespace(upload_media_ns)

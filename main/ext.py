@@ -17,6 +17,6 @@ def init_ext(app):
 
     scheduler.init_app(app)
 
-    scheduler.add_job(func=job_function, trigger='interval',seconds=2, id='my_job_id')
+    #scheduler.add_job(func=job_function, trigger='interval',seconds=2, id='my_job_id')
 
     scheduler.start()

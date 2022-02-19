@@ -25,9 +25,6 @@ class Config:
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 
-
-
-
 class DevelopConfig(Config):
 
     ENV='development'
@@ -51,41 +48,6 @@ class DevelopConfig(Config):
     SCHEDULER_API_ENABLED = True
 
 
-class TestConfig(Config):
-    TESTING = True
-
-    dbinfo = {
-
-        "ENGINE": "mysql",
-        "DRIVER": "mysqldb",
-        "USER": "root",
-        "PASSWORD": " ",
-        "HOST": "localhost",
-        "PORT": "3306",
-        "NAME": " "
-
-    }
-
-    SQLALCHEMY_DATABASE_URI = get_db_uri(dbinfo)
-
-
-class StagingConfig(Config):
-
-    dbinfo = {
-
-        "ENGINE": "mysql",
-        "DRIVER": "mysqldb",
-        "USER": "root",
-        "PASSWORD": " ",
-        "HOST": "localhost",
-        "PORT": "3306",
-        "NAME": " "
-
-    }
-
-    SQLALCHEMY_DATABASE_URI = get_db_uri(dbinfo)
-
-
 class ProductConfig(Config):
 
     dbinfo = {
@@ -105,8 +67,5 @@ class ProductConfig(Config):
 
 envs = {
     "develop": DevelopConfig,
-    "testing": TestConfig,
-    "staging": StagingConfig,
-    "product": ProductConfig,
-    "default": DevelopConfig
+    "product": ProductConfig
 }
