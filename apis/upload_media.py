@@ -3,7 +3,6 @@ from models import wx_message,wx_token,wx_user
 
 ns = Namespace('upload', description='上传临时素材')
 
-
 @ns.route('/media')
 class UploadMedia(Resource):
     def get(self, **kwargs):

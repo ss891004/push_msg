@@ -1,9 +1,11 @@
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
 from flask_apscheduler import APScheduler
-# 此文件第三方的引用
+
+# flask-sqlalchemy , flask-migrate
 dbs = SQLAlchemy()
 migrate = Migrate()
+
 # initialize scheduler
 scheduler = APScheduler()
 
