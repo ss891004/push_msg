@@ -1,5 +1,5 @@
 from main.ext import dbs
-import time
+from datetime import datetime 
 
 class WxMessage(dbs.Model):
     __tablename__ = 'wx_message'
@@ -19,7 +19,7 @@ class WxMessage(dbs.Model):
     msg_title  =   dbs.Column(dbs.String(50))
     msg_desc =   dbs.Column(dbs.String(100))
     msg_url= dbs.Column(dbs.Text)
-    insert_time = dbs.Column(dbs.String(20),nullable=False, default=time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()))
+    insert_time = dbs.Column(dbs.String(20),nullable=False, default=datetime.now().strftime("%Y%m%d%H%M%S"))
 
 
     def __init__(self):

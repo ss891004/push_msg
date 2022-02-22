@@ -1,4 +1,5 @@
 import os
+from apscheduler.jobstores.sqlalchemy import SQLAlchemyJobStore
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -32,6 +33,8 @@ class DevelopConfig(Config):
     }
     SQLALCHEMY_DATABASE_URI = get_db_uri(dbinfo)
     SCHEDULER_API_ENABLED = True
+    #SCHEDULER_JOBSTORES={'default':SQLAlchemyJobStore(url=get_db_uri(dbinfo))}
+    #SCHEDULER_EXECUTORS={'default': {'type': 'threadpool', 'max_workers': 10} }
 
 
 class ProductConfig(Config):

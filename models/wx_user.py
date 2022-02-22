@@ -1,4 +1,5 @@
 from main.ext import dbs
+from datetime import datetime
 
 class WxUser(dbs.Model):
     __tablename__ = 'wx_user'
@@ -10,9 +11,15 @@ class WxUser(dbs.Model):
     emp_cert_id = dbs.Column(dbs.String(20))
     emp_position = dbs.Column(dbs.String(100))
     emp_depart = dbs.Column(dbs.String(50))
+    #insert_time = dbs.Column(dbs.String(20), default=datetime.now().strftime("%Y%m%d%H%M%S"))
+    create_time = dbs.Column(dbs.DateTime, default=datetime.now)
 
     def __init__(self):
         pass
 
     def __repr__(self):
         pass
+
+    def save(self):
+        dbs.session.add(self)
+        dbs.session.commit()

@@ -86,6 +86,48 @@ SCHEDULER_JOB_DEFAULTS: dict
 SCHEDULER_TIMEZONE: dict
 ```
 
+```
+
+新建一个 schedulers (调度器) 。
+添加一个调度任务(job stores)。
+运行调度任务
+
+APScheduler 有四种组件，分别是：调度器(scheduler)，作业存储(job store)，触发器(trigger)，执行器(executor)。
+```
+
++ RuntimeError: No application found . Either work inside a view function or push an application context
+```
+报错原因：线程是独立的，相对于flask进程是独立的，它不知道flask初始化时候，app对象，db对象是谁，也就拿不到连接数据库需要的config，就报错了。
+```
+
+```
+flask 中如下两个字段
+
+create_time1 = db.Column(db.DateTime, default=datetime.now)
+create_time2 = db.Column(db.DateTime, default=datetime.now())
+
+两者的区别:
+第一个插入的是期望的, 数据的插入时间，每条数据插入时可自动根据当前时间生成
+
+第二条是一个固定的时间, 程序部署的时间，所有的数据都是这个固定时间
+
+实际上默认值在mysql数据库没有体现, 都是sqlalchemy在插入数据时加的
+
+如果想想在生成的table中有默认值使用server_default
+
+name = db.Column(db.String(45), server_default='hh')
+当我们要给布尔值类型指定server_default时，需要用到text
+
+from sqlalchemy import text
+is_domain = db.Column(db.Boolean,default=False,server_default=text('0'))
+ 
+
+因为mysql的datetime类型的数据不支持函数, 所以没法指定默认值位当前时间
+
+记录每次修改的时间,onupdate
+update_time = db.Column(db.DateTime, default=datetime.now,onupdate=datetime.now)
+```
+
 
 
 ## 问题点
