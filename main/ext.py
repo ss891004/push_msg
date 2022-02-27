@@ -11,7 +11,7 @@ migrate = Migrate()
 # initialize scheduler
 scheduler = APScheduler()
 
-from jobs.access_token import job_function
+from jobs.access_token import token_job
 from datetime import datetime
 
 
@@ -21,6 +21,6 @@ def init_ext(app):
 
     scheduler.init_app(app)
     #立即执行
-    scheduler.add_job(func=job_function, trigger='interval',seconds=10, next_run_time=datetime.now(), id=str(uuid.uuid1()))
+    scheduler.add_job(func=token_job, trigger='interval',seconds=7200,args=[None], next_run_time=datetime.now(), id=str(uuid.uuid1()))
     scheduler.start()
  

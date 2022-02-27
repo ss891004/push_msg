@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 2e8be84a9249
+Revision ID: 2a6f37f1731a
 Revises: 
-Create Date: 2022-02-22 10:17:35.881460
+Create Date: 2022-02-27 13:56:39.894450
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '2e8be84a9249'
+revision = '2a6f37f1731a'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -34,7 +34,8 @@ def upgrade():
     sa.Column('msg_title', sa.String(length=50), nullable=True),
     sa.Column('msg_desc', sa.String(length=100), nullable=True),
     sa.Column('msg_url', sa.Text(), nullable=True),
-    sa.Column('insert_time', sa.String(length=20), nullable=False),
+    sa.Column('create_time', sa.DateTime(), nullable=True),
+    sa.Column('update_time', sa.DateTime(), nullable=True),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('wx_token',
@@ -42,11 +43,12 @@ def upgrade():
     sa.Column('agent_id', sa.String(length=10), nullable=False),
     sa.Column('corp_id', sa.String(length=20), nullable=False),
     sa.Column('corp_secret', sa.String(length=50), nullable=False),
-    sa.Column('access_token', sa.String(length=512), nullable=False),
+    sa.Column('access_token', sa.String(length=512), nullable=True),
     sa.Column('err_code', sa.Integer(), nullable=True),
-    sa.Column('err_msg', sa.String(length=50), nullable=False),
+    sa.Column('err_msg', sa.String(length=50), nullable=True),
     sa.Column('expires_in', sa.Integer(), nullable=True),
-    sa.Column('insert_time', sa.String(length=20), nullable=False),
+    sa.Column('create_time', sa.DateTime(), nullable=True),
+    sa.Column('update_time', sa.DateTime(), nullable=True),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('wx_user',
@@ -57,7 +59,8 @@ def upgrade():
     sa.Column('emp_cert_id', sa.String(length=20), nullable=True),
     sa.Column('emp_position', sa.String(length=100), nullable=True),
     sa.Column('emp_depart', sa.String(length=50), nullable=True),
-    sa.Column('insert_time', sa.DateTime(), nullable=True),
+    sa.Column('create_time', sa.DateTime(), nullable=True),
+    sa.Column('update_time', sa.DateTime(), nullable=True),
     sa.PrimaryKeyConstraint('emp_no')
     )
     op.create_index(op.f('ix_wx_user_wx_user_id'), 'wx_user', ['wx_user_id'], unique=True)

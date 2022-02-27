@@ -129,6 +129,36 @@ update_time = db.Column(db.DateTime, default=datetime.now,onupdate=datetime.now)
 ```
 
 
+## python 解析JSON数据
+
+
+|Python对象|JSON|
+|---|---|
+|dict|object|
+|list, tuple|array|
+|str|string|
+|int, float|number|
+|True|true|
+|False|false|
+|None|null|
+
++ Python 对象编码成 JSON，dump()和dumps()
++ JSON 数据转换成 Python 对象，使用load()和loads()
+
+## 类
++ 类的方法的定义
+    def fun_name(self,...);
+      Pass
+
+    其中的参数self代表类的实例，在调用方法时由系统自动提供
+    方法定义时必须指明self参数
+
+ 
++ 类的方法的调用
+    1.类的内部调用：self.<方法名>(参数列表)。
+    2.在类的外部调用：<实例名>.<方法名>(参数列表)。
+    注意：以上两种调用方法中，提供的参数列表中都不用包括self。
+
 
 ## 问题点
 + Object of type Response is not JSON serializable

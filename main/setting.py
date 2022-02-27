@@ -33,6 +33,7 @@ class DevelopConfig(Config):
     }
     SQLALCHEMY_DATABASE_URI = get_db_uri(dbinfo)
     SCHEDULER_API_ENABLED = True
+    SCHEDULER_TIMEZONE = 'Asia/Shanghai'
     #SCHEDULER_JOBSTORES={'default':SQLAlchemyJobStore(url=get_db_uri(dbinfo))}
     #SCHEDULER_EXECUTORS={'default': {'type': 'threadpool', 'max_workers': 10} }
 
@@ -55,17 +56,14 @@ envs = {
     "product": ProductConfig
 }
 
-corpid="ww9985578839fbc0d9"
-access_token_url="https://qyapi.weixin.qq.com/cgi-bin/gettoken?corpid=ID&corpsecret=SECRET"
 
+# 以agent_id,存储access_token，每隔7200s，重新获取
 token_sources = {}
 
-class TokenConfig:
-    token_sources['1000012'] = {
-        'corpsecret': 'FP9vhJs3sWgt8jUKwwPL2zYoEyBMRv5SNtBppIYSiGw',
-        'access_token':''
-    }
-    
+# 发送应用消息
+send_message_post_url = 'https://qyapi.weixin.qq.com/cgi-bin/message/send?access_token=%s'
 
-   
-   
+upload_media_post_url = 'https://qyapi.weixin.qq.com/cgi-bin/media/upload?access_token=%s&type=%s'
+
+
+upload_media_path ='/hrcb/'

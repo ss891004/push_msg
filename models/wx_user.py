@@ -11,8 +11,8 @@ class WxUser(dbs.Model):
     emp_cert_id = dbs.Column(dbs.String(20))
     emp_position = dbs.Column(dbs.String(100))
     emp_depart = dbs.Column(dbs.String(50))
-    #insert_time = dbs.Column(dbs.String(20), default=datetime.now().strftime("%Y%m%d%H%M%S"))
     create_time = dbs.Column(dbs.DateTime, default=datetime.now)
+    update_time = dbs.Column(dbs.DateTime, default=datetime.now, onupdate=datetime.now)
 
     def __init__(self):
         pass

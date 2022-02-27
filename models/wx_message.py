@@ -19,7 +19,8 @@ class WxMessage(dbs.Model):
     msg_title  =   dbs.Column(dbs.String(50))
     msg_desc =   dbs.Column(dbs.String(100))
     msg_url= dbs.Column(dbs.Text)
-    insert_time = dbs.Column(dbs.String(20),nullable=False, default=datetime.now().strftime("%Y%m%d%H%M%S"))
+    create_time = dbs.Column(dbs.DateTime, default=datetime.now)
+    update_time = dbs.Column(dbs.DateTime, default=datetime.now, onupdate=datetime.now)
 
 
     def __init__(self):
