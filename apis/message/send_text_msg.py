@@ -10,18 +10,18 @@ from utils.qywx import get_qywx_user_id
 # 请求参数的json格式
 TextData=ns.model('TextData',
 {
-'hrcb_user':fields.String(required=True),
-'hrcb_party':fields.String,
-'agent_id':fields.Integer,
-'content':fields.String(required=True),
+'hrcb_user':fields.String(required=True,description='员工工号,多个工号用|连接'),
+'hrcb_party':fields.String(description='可省略'),
+'agent_id':fields.Integer(description='应用id'),
+'content':fields.String(required=True,description='发送的内容'),
 })
 
 # get请求的参数
 parser = reqparse.RequestParser()
-parser.add_argument('hrcb_user', type=str,required=True )
-parser.add_argument('hrcb_party', type=str)
-parser.add_argument('agent_id', type=int,required=True )
-parser.add_argument('content', type=str,required=True)
+parser.add_argument('hrcb_user', type=str,required=True,help='员工工号,多个工号用|连接')
+parser.add_argument('hrcb_party', type=str,help='可省略')
+parser.add_argument('agent_id', type=int,required=True,help='应用id' )
+parser.add_argument('content', type=str,required=True,help='发送的内容')
 
 
 @ns.route('/text')

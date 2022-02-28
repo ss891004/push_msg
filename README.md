@@ -223,3 +223,22 @@ update_time = db.Column(db.DateTime, default=datetime.now,onupdate=datetime.now)
     + 一对一
     + 一对多
     + 多对多
+
+***
+---
+___
+## 部署情况
+
++ 环境遍历获取
+    + .bashrc
+        + FLASK_ENV=
+
++ 数据第一次迁移
+    flask db init
+    flask db migrate
+    flask db upgrade
+
++ Target database is not up to date.
+
++ 多进程部署，定时任务多次执行
+    +  apscheduler.schedulers.SchedulerAlreadyRunningError: Scheduler is already running

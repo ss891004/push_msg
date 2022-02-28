@@ -1,5 +1,6 @@
 import os
 from apscheduler.jobstores.sqlalchemy import SQLAlchemyJobStore
+from urllib.parse import quote_plus as urlquote
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -7,7 +8,8 @@ def get_db_uri(dbinfo):
     engine = dbinfo.get("ENGINE") or "sqlite"
     driver = dbinfo.get("DRIVER") or "sqlite"
     user = dbinfo.get("USER") or ""
-    password = dbinfo.get("PASSWORD") or ""
+    # 防止密码中有特殊符号
+    password = urlquote(dbinfo.get("PASSWORD")) or ""
     host = dbinfo.get("HOST") or ""
     port = dbinfo.get("PORT") or ""
     name = dbinfo.get("NAME") or ""
@@ -26,7 +28,7 @@ class DevelopConfig(Config):
         "ENGINE": "mysql",
         "DRIVER": "mysqlconnector",
         "USER": "root",
-        "PASSWORD": "123456",
+        "PASSWORD": "Hm@123456",
         "HOST": "127.0.0.1",
         "PORT": "3306",
         "NAME": "flask"
@@ -42,18 +44,21 @@ class ProductConfig(Config):
 
     dbinfo = {
         "ENGINE": "mysql",
-        "DRIVER": "mysqldb",
+        "DRIVER": "mysqlconnector",
         "USER": "root",
-        "PASSWORD": " ",
-        "HOST": "localhost",
+        "PASSWORD": "Hm@wx320625",
+        "HOST": "127.0.0.1",
         "PORT": "3306",
-        "NAME": " "
+        "NAME": "qywx"
     }
+
     SQLALCHEMY_DATABASE_URI = get_db_uri(dbinfo)
+    SCHEDULER_API_ENABLED = True
+    SCHEDULER_TIMEZONE = 'Asia/Shanghai'
 
 envs = {
-    "develop": DevelopConfig,
-    "product": ProductConfig
+    "development": DevelopConfig,
+    "production": ProductConfig
 }
 
 
@@ -64,6 +69,5 @@ token_sources = {}
 send_message_post_url = 'https://qyapi.weixin.qq.com/cgi-bin/message/send?access_token=%s'
 
 upload_media_post_url = 'https://qyapi.weixin.qq.com/cgi-bin/media/upload?access_token=%s&type=%s'
-
 
 upload_media_path ='/hrcb/'

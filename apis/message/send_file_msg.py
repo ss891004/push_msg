@@ -11,16 +11,16 @@ from utils.qywx import get_qywx_user_id
 # 请求参数的json格式
 FileData=ns.model('FileData',
 {
-'hrcb_user':fields.String(required=True),
-'agent_id':fields.Integer,
-'media_id':fields.String(required=True),
+'hrcb_user':fields.String(required=True,  description='员工工号,多个工号用|连接') ,
+'agent_id':fields.Integer(description='应用id'),
+'media_id':fields.String(required=True,description='上传素材后返回的id'),
 })
 
 # get请求的参数
 parser = reqparse.RequestParser()
-parser.add_argument('hrcb_user', type=str, required=True)
-parser.add_argument('agent_id', type=int, required=True)
-parser.add_argument('media_id', type=str, required=True)
+parser.add_argument('hrcb_user', type=str, required=True, help='员工工号,多个工号用|连接')
+parser.add_argument('agent_id', type=int, required=True, help='应用id' )
+parser.add_argument('media_id', type=str, required=True, help='上传素材后返回的id')
 
 
 @ns.route('/file')

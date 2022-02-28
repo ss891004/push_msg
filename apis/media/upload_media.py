@@ -19,8 +19,8 @@ import fnmatch
 '''
 
 parser = reqparse.RequestParser()
-parser.add_argument('imgFile', type=FileStorage,required=True, location='files') 
-parser.add_argument('agent_id', type=int, required=True)
+parser.add_argument('hrcb_file', type=FileStorage,required=True, location='files' ,help='上传的文件') 
+parser.add_argument('agent_id', type=int, required=True,help='应用id')
 
 
 @ns.route('/upload')
@@ -30,7 +30,7 @@ class UploadMedia(Resource):
     def post(self):
         # 获取客户端上传的文件
         args = parser.parse_args()
-        img_file = args['imgFile']  # FileStorage instance
+        img_file = args['hrcb_file']  # FileStorage instance
         file_path= os.path.join(upload_media_path, datetime.now().strftime('%Y-%m'))
         # 创建目录
         if not os.path.exists(file_path):
