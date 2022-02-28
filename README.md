@@ -52,11 +52,27 @@ flask db upgrade   将表映射到数据库中去
 
 
 ### flask-restx
-+ 
+
+#### REST
++ REST即Representational State Transfer的缩写。REST最大的几个特点为：资源、统一接口、URI和无状态。
+ + 资源：网络上的一个实体或具体信息。JSON是现在最常用的资源表示格式。
+ + 统一接口：数据的元操作，即CRUD操作，分别对应于HTTP方法：
+    + GET用来获取资源
+    + POST用来新建资源（也可用于更新资源）
+    + PUT用来更新资源
+    + DELETE用来删除资源。
+ + URI：URI是每一个资源的地址或识别符。最典型的URI即URL。
+ + 无状态：所有的资源，都可以通过URI定位，而且这个定位与其他资源无关，也不会因为其他资源的变化而改变。
 
 
++ 命名空间 (Namespace)
+    + 作用是为不同的资源，不同的url分组
 
-### Coloum
+
+#### werkzeug.datastructures.FileStorage
+
+
+#### Coloum
 + Id = db.Column(db.Integer, autoincrement=True, primary_key=True, nullable=False, unique=True, index=True)
 
 ### alembic 
@@ -78,6 +94,7 @@ SCHEDULER_API_ENABLED: bool (default: False)
 SCHEDULER_API_PREFIX: str (default: "/scheduler")
 SCHEDULER_ENDPOINT_PREFIX: str (default: "scheduler.")
 SCHEDULER_ALLOWED_HOSTS: list (default: ["*"])
+
 Configuration options specific to APScheduler:
 
 SCHEDULER_JOBSTORES: dict
@@ -164,3 +181,45 @@ update_time = db.Column(db.DateTime, default=datetime.now,onupdate=datetime.now)
 + Object of type Response is not JSON serializable
     + 返回的对象必须可系列化
 + the JSON object must be str, bytes or bytearray, not Response
+
+
+## flask-sqlalchemy
+
+|属性|说明|
+|---|---|
+|SQLALCHEMY_DATABASE_URI|用于连接数据的数据库。例如： sqlite:tmp/test.db mysql://username:password@server/db|
+|SQLALCHEMY_BINDS|一个映射绑定 (bind) 键到 SQLAlchemy 连接 URIs 的字典。 更多的信息请参阅 绑定多个数据库。|
+|SQLALCHEMY_ECHO|如果设置成 True，SQLAlchemy 将会记录所有 发到标准输出(stderr)的语句，这对调试很有帮助。|
+|SQLALCHEMY_RECORD_QUERIES|可以用于显式地禁用或者启用查询记录。查询记录 在调试或者测试模式下自动启用。更多信息请参阅 get_debug_queries()。|
+|SQLALCHEMY_NATIVE_UNICODE|可以用于显式地禁用支持原生的 unicode。这是 某些数据库适配器必须的（像在 Ubuntu 某些版本上的 PostgreSQL），当使用不合适的指定无编码的数据库 默认值时。|
+|SQLALCHEMY_POOL_SIZE|数据库连接池的大小。默认是数据库引擎的默认值 （通常是 5）。|
+|SQLALCHEMY_POOL_TIMEOUT|指定数据库连接池的超时时间。默认是 10。|
+|SQLALCHEMY_POOL_RECYCLE|自动回收连接的秒数。这对 MySQL 是必须的，默认 情况下 MySQL 会自动移除闲置 8 小时或者以上的连接。 需要注意地是如果使用 MySQL 的话， Flask-SQLAlchemy 会自动地设置这个值为 2 小时。|
+|SQLALCHEMY_MAX_OVERFLOW|控制在连接池达到最大值后可以创建的连接数。当这些额外的 连接回收到连接池后将会被断开和抛弃。|
+|SQLALCHEMY_TRACK_MODIFICATIONS|如果设置成 True (默认情况)，Flask-SQLAlchemy 将会追踪对象的修改并且发送信号。这需要额外的内存， 如果不必要的可以禁用它。|
+
++ 增
+    + db.session.add()
+    + db.session.add_all()
+    + db.session.commit()
+
++ 删
+    + db.session.delete()
+
++ 改
+    + 修改对象中的属性
+    + db.session.commit()
+
++ 查
+    + Student.query.all()
+    + student = Student.query.filter_by(age = 18) #按条件查询
+    + student = Student.query.get(1) #自动以主键查询
+    + student = Student.query.group_by("age") #按照组
+    + student = Student.query.order_by(Student.age) #排序
+    + student = Student.query.order_by(Student.age.desc()) #按照组
+
+
++ 表关系：
+    + 一对一
+    + 一对多
+    + 多对多
